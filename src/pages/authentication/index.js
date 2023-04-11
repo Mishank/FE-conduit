@@ -1,9 +1,16 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 
 const Authentication = () => {
+  const [user, setUser] = useState({ name: '' })
+  const handleCounter = () => {
+    setUser({ name: 'Foo' })
+  }
+  console.log('counter', user)
+
   return (
     <div className="auth-page">
+      <button onClick={handleCounter}>Counter</button>
       <div className="container page">
         <div className="row">
           <div className="col-md-6 offset-md-3 col-xs-12">
