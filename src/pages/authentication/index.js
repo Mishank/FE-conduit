@@ -1,17 +1,19 @@
-import React, { useRef, useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 
 const Authentication = () => {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
-  const emailRef = useRef(null)
-  console.log('emailRef', emailRef)
 
   const handleSubmit = (event) => {
     event.preventDefault()
     console.log('data', email, password)
-    console.log('reff', emailRef.current.value)
   }
+
+  useEffect(() => {
+    console.log('effect was triggered')
+    document.title = email
+  }, [email])
 
   return (
     <div className="auth-page">
@@ -30,7 +32,8 @@ const Authentication = () => {
                     type="email"
                     className="form-control form-control-lg"
                     placeholder="Email"
-                    ref={emailRef}
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
                   />
                 </fieldset>
                 <fieldset className="form-group">
