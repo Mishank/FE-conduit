@@ -10,7 +10,7 @@ const TopBar = () => {
         </NavLink>
         <ul className="nav navbar-nav pull-xs-right">
           <li className="nav-item">
-            <NavLink to="/" className="nav-link" exact>
+            <NavLink to="/" className="nav-link">
               Home
             </NavLink>
           </li>

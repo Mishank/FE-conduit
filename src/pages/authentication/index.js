@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useFetcher } from 'react-router-dom'
 import axios from 'axios'
 
 const Authentication = () => {
@@ -17,12 +17,12 @@ const Authentication = () => {
     if (!isSubmitting) {
       return
     }
-    axios('http://localhost:3001/api/users/login', {
+    axios('http://localhost:3000/api/users/login', {
       method: 'post',
       data: {
         user: {
-          email: 'gang',
-          password: '123',
+          email: email,
+          password: password,
         },
       },
     })
