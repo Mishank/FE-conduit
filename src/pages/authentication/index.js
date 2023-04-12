@@ -1,19 +1,40 @@
 import React, { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
+import axios from 'axios'
 
 const Authentication = () => {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
+  const [isSubmitting, setIsSubmitting] = useState(false)
 
   const handleSubmit = (event) => {
     event.preventDefault()
     console.log('data', email, password)
+    setIsSubmitting(true)
   }
 
   useEffect(() => {
-    console.log('effect was triggered')
-    document.title = email
-  }, [email])
+    if (!isSubmitting) {
+      return
+    }
+    axios('http://localhost:3001/api/users/login', {
+      method: 'post',
+      data: {
+        user: {
+          email: 'gang',
+          password: '123',
+        },
+      },
+    })
+      .then((res) => {
+        console.log('success', res)
+        setIsSubmitting(false)
+      })
+      .catch((error) => {
+        console.log('error', error)
+        setIsSubmitting(false)
+      })
+  })
 
   return (
     <div className="auth-page">
@@ -48,6 +69,7 @@ const Authentication = () => {
                 <button
                   className="btn btn-lg btn-primary pull-xs-right"
                   type="submit"
+                  disabled={isSubmitting}
                 >
                   Sign in
                 </button>
