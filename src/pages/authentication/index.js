@@ -4,6 +4,7 @@ import { Link, useLocation, Navigate } from 'react-router-dom'
 import useFetch from 'hooks/useFetch'
 import useLocalStorage from 'hooks/useLocalStorage'
 import { CurrentUserContext } from 'contexts/currentUser'
+import BackendErrorMessages from './components/backendErrorMessages'
 
 const Authentication = (props) => {
   const location = useLocation()
@@ -16,11 +17,9 @@ const Authentication = (props) => {
   const [password, setPassword] = useState('')
   const [username, setUsername] = useState('')
   const [isSuccessfullSubmit, setIsSuccessfullSubmit] = useState(false)
-  const [{ response, isLoading }, doFetch] = useFetch(apiUrl)
-  const [token, setToken] = useLocalStorage('token')
-  const [currentUserState, setCurrentUserState] = useContext(CurrentUserContext)
-
-  console.log('currentUserState', currentUserState)
+  const [{ response, isLoading, error }, doFetch] = useFetch(apiUrl)
+  const [, setToken] = useLocalStorage('token')
+  const [, setCurrentUserState] = useContext(CurrentUserContext)
 
   const handleSubmit = (event) => {
     event.preventDefault()
@@ -45,7 +44,7 @@ const Authentication = (props) => {
       isLoading: false,
       currentUser: response.user,
     }))
-  }, [response, setToken])
+  }, [response, setToken, setCurrentUserState])
 
   if (isSuccessfullSubmit) {
     return <Navigate to="/" />
@@ -62,6 +61,7 @@ const Authentication = (props) => {
             </p>
 
             <form onSubmit={handleSubmit}>
+              {error && <BackendErrorMessages backendErrors={error.errors} />}
               <fieldset>
                 {!isLogin && (
                   <fieldset className="form-group">
