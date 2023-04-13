@@ -4,16 +4,18 @@ import axios from 'axios'
 
 import useFetch from 'hooks/useFetch'
 
-const Authentication = (useLocation, useParams) => {
-  const isLogin = useLocation.path === '/login' // math.path проблема в коде ?
+const Authentication = (props) => {
+  const location = useLocation()
+  const params = useParams()
+  const isLogin = location.pathname === '/login' // math.path проблема в коде ?
   const pageTitle = isLogin ? 'Sign In' : 'Sign Up'
   const descriptionLink = isLogin ? '/register' : '/login'
   const descriptionText = isLogin ? 'need an account?' : 'Have an account?'
-  const apiUrl = isLogin ? '/users/login' : 'users' //не работает из за isLogin
+  const apiUrl = isLogin ? '/users/login' : '/users' //не работает из за isLogin
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [username, setUsername] = useState('')
-  const [{ response, isLoading, error }, doFetch] = useFetch('/users/login') // apiURL
+  const [{ response, isLoading, error }, doFetch] = useFetch(apiUrl)
 
   console.log('fff', isLogin)
 
@@ -52,6 +54,15 @@ const Authentication = (useLocation, useParams) => {
                     />
                   </fieldset>
                 )}
+                <fieldset className="form-group">
+                  <input
+                    type="text"
+                    className="form-control form-control-lg"
+                    placeholder="email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                  />
+                </fieldset>
                 <fieldset className="form-group">
                   <input
                     type="password"
