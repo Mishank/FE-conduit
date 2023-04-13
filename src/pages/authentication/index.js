@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react'
-import { Link, useFetcher, useLocation, useParams } from 'react-router-dom'
+import { Link, useFetcher, useParams, useLocation } from 'react-router-dom'
+import { Navigate } from 'react-router-dom'
+
 import axios from 'axios'
 
 import useFetch from 'hooks/useFetch'
@@ -15,6 +17,7 @@ const Authentication = (props) => {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [username, setUsername] = useState('')
+  const [isSuccessfullSubmit, setIsSuccessfullSubmit] = useState(false)
   const [{ response, isLoading, error }, doFetch] = useFetch(apiUrl)
 
   console.log('fff', isLogin)
@@ -29,6 +32,17 @@ const Authentication = (props) => {
         user,
       },
     })
+  }
+  useEffect(() => {
+    if (!response) {
+      return
+    }
+    localStorage.setItem('token', response.user.token)
+    setIsSuccessfullSubmit(true)
+  }, [response])
+
+  if (isSuccessfullSubmit) {
+    return <Navigate to="/" />
   }
 
   return (
