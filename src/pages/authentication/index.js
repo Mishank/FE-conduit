@@ -1,8 +1,9 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useContext } from 'react'
 import { Link, useLocation, Navigate } from 'react-router-dom'
 
 import useFetch from 'hooks/useFetch'
 import useLocalStorage from 'hooks/useLocalStorage'
+import { CurrentUserContext } from 'contexts/currentUser'
 
 const Authentication = (props) => {
   const location = useLocation()
@@ -17,8 +18,9 @@ const Authentication = (props) => {
   const [isSuccessfullSubmit, setIsSuccessfullSubmit] = useState(false)
   const [{ response, isLoading }, doFetch] = useFetch(apiUrl)
   const [token, setToken] = useLocalStorage('token')
+  const [currentUserState, setCurrentUserState] = useContext(CurrentUserContext)
 
-  console.log('token', token)
+  console.log('currentUserState', currentUserState)
 
   const handleSubmit = (event) => {
     event.preventDefault()
@@ -37,6 +39,12 @@ const Authentication = (props) => {
     }
     setToken(response.user.token)
     setIsSuccessfullSubmit(true)
+    setCurrentUserState((state) => ({
+      ...state,
+      isLoggedIn: true,
+      isLoading: false,
+      currentUser: response.user,
+    }))
   }, [response, setToken])
 
   if (isSuccessfullSubmit) {
