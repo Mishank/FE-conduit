@@ -1,10 +1,16 @@
 import React, { useState, useEffect } from 'react'
-import { Link, useFetcher, useParams, useLocation } from 'react-router-dom'
-import { Navigate } from 'react-router-dom'
+import {
+  Link,
+  useFetcher,
+  useParams,
+  useLocation,
+  Navigate,
+} from 'react-router-dom'
 
 import axios from 'axios'
 
 import useFetch from 'hooks/useFetch'
+import useLocalStorage from 'hooks/useLocalStorage'
 
 const Authentication = (props) => {
   const location = useLocation()
@@ -19,8 +25,9 @@ const Authentication = (props) => {
   const [username, setUsername] = useState('')
   const [isSuccessfullSubmit, setIsSuccessfullSubmit] = useState(false)
   const [{ response, isLoading, error }, doFetch] = useFetch(apiUrl)
+  const [token, setToken] = useLocalStorage('token')
 
-  console.log('fff', isLogin)
+  console.log('token', token)
 
   const handleSubmit = (event) => {
     event.preventDefault()
@@ -37,7 +44,7 @@ const Authentication = (props) => {
     if (!response) {
       return
     }
-    localStorage.setItem('token', response.user.token)
+    setToken(response.user.token)
     setIsSuccessfullSubmit(true)
   }, [response])
 
