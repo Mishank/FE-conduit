@@ -29,6 +29,6 @@ export default (url) => {
       .finally(() => {
         setIsLoading(false)
       })
-  }, [isLoading])
+  }, [isLoading, options, url])
   return [{ isLoading, response, error }, doFetch]
 }

@@ -1,30 +1,21 @@
 import React, { useState, useEffect } from 'react'
-import {
-  Link,
-  useFetcher,
-  useParams,
-  useLocation,
-  Navigate,
-} from 'react-router-dom'
-
-import axios from 'axios'
+import { Link, useLocation, Navigate } from 'react-router-dom'
 
 import useFetch from 'hooks/useFetch'
 import useLocalStorage from 'hooks/useLocalStorage'
 
 const Authentication = (props) => {
   const location = useLocation()
-  const params = useParams()
-  const isLogin = location.pathname === '/login' // math.path проблема в коде ?
+  const isLogin = location.pathname === '/login'
   const pageTitle = isLogin ? 'Sign In' : 'Sign Up'
   const descriptionLink = isLogin ? '/register' : '/login'
   const descriptionText = isLogin ? 'need an account?' : 'Have an account?'
-  const apiUrl = isLogin ? '/users/login' : '/users' //не работает из за isLogin
+  const apiUrl = isLogin ? '/users/login' : '/users'
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [username, setUsername] = useState('')
   const [isSuccessfullSubmit, setIsSuccessfullSubmit] = useState(false)
-  const [{ response, isLoading, error }, doFetch] = useFetch(apiUrl)
+  const [{ response, isLoading }, doFetch] = useFetch(apiUrl)
   const [token, setToken] = useLocalStorage('token')
 
   console.log('token', token)
@@ -46,7 +37,7 @@ const Authentication = (props) => {
     }
     setToken(response.user.token)
     setIsSuccessfullSubmit(true)
-  }, [response])
+  }, [response, setToken])
 
   if (isSuccessfullSubmit) {
     return <Navigate to="/" />
