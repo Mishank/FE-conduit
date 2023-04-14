@@ -24,9 +24,9 @@ const GlobalFeed = () => {
             {isLoading && <div>Loading...</div>}
             {error && <div>Some error happened</div>}
             {!isLoading && response && (
-              <Fragment>
+              <>
                 <Feed articles={response.articles} />
-              </Fragment>
+              </>
             )}
           </div>
           <div className="col-md-3">Popular tags</div>
