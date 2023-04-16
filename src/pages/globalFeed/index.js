@@ -1,5 +1,5 @@
 import React, { useEffect, Fragment } from 'react'
-import { useLocation } from 'react-router-dom'
+import { useLocation, useMatch } from 'react-router-dom'
 import queryString from 'query-string'
 
 import Feed from 'components/feed'
@@ -7,7 +7,7 @@ import useFetch from 'hooks/useFetch'
 import Pagination from 'components/pagination'
 import { getPaginator, limit } from 'utils'
 
-const GlobalFeed = (props, match) => {
+const GlobalFeed = (props) => {
   const location = useLocation()
   const { offset, currentPage } = getPaginator(location.search)
 
@@ -17,8 +17,7 @@ const GlobalFeed = (props, match) => {
   })
   const apiUrl = `/articles?${stringifieldParams}`
   const [{ response, error, isLoading }, doFetch] = useFetch(apiUrl)
-  console.log({ match })
-  const url = match.url
+  const url = location.pathname
 
   useEffect(() => {
     doFetch()
@@ -41,7 +40,7 @@ const GlobalFeed = (props, match) => {
                 <Pagination
                   total={response.articlesCount}
                   limit={limit}
-                  url="/"
+                  url={url}
                   currentPage={currentPage}
                 />
               </>
