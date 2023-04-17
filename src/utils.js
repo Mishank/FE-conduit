@@ -4,7 +4,7 @@ export const range = (start, end) => {
   return [...Array(end).keys()].map((el) => el + start)
 }
 
-export const limit = 10
+export const limit = 2
 
 export const getPaginator = (search) => {
   const parsedSearch = queryString.parse(search)

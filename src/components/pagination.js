@@ -9,6 +9,7 @@ const PaginationItem = ({ page, currentPage, url }) => {
     'page-item': true,
     active: currentPage === page,
   })
+
   return (
     <li className={liClasses}>
       <Link to={`${url}?page=${page}`} className="page-link">
