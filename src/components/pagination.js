@@ -9,6 +9,7 @@ const PaginationItem = ({ page, currentPage, url }) => {
     'page-item': true,
     active: currentPage === page,
   })
+
   return (
     <li className={liClasses}>
       <Link to={`${url}?page=${page}`} className="page-link">
@@ -19,7 +20,7 @@ const PaginationItem = ({ page, currentPage, url }) => {
 }
 
 const Pagination = ({ total, limit, url, currentPage }) => {
-  const pagesCount = Math.ceil(total / limit)
+  const pagesCount = Math.ceil(total / 1)
   const pages = range(1, pagesCount)
 
   return (

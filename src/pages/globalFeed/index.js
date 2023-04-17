@@ -1,5 +1,5 @@
 import React, { useEffect, Fragment } from 'react'
-import { useLocation, useMatch } from 'react-router-dom'
+import { useLocation } from 'react-router-dom'
 import queryString from 'query-string'
 
 import Feed from 'components/feed'
