@@ -1,16 +1,27 @@
 import React, { useEffect, Fragment } from 'react'
+import { useLocation, useMatch } from 'react-router-dom'
+import queryString from 'query-string'
 
 import Feed from 'components/feed'
 import useFetch from 'hooks/useFetch'
+import Pagination from 'components/pagination'
+import { getPaginator, limit } from 'utils'
 
-const GlobalFeed = () => {
-  const apiUrl = '/articles?limit=10&offset=0'
+const GlobalFeed = (props) => {
+  const location = useLocation()
+  const { offset, currentPage } = getPaginator(location.search)
+
+  const stringifieldParams = queryString.stringify({
+    limit,
+    offset,
+  })
+  const apiUrl = `/articles?${stringifieldParams}`
   const [{ response, error, isLoading }, doFetch] = useFetch(apiUrl)
-  console.log('res', response, error, isLoading)
+  const url = location.pathname
 
   useEffect(() => {
     doFetch()
-  }, [doFetch])
+  }, [doFetch, currentPage])
 
   return (
     <div className="home-page">
@@ -26,6 +37,12 @@ const GlobalFeed = () => {
             {!isLoading && response && (
               <>
                 <Feed articles={response.articles} />
+                <Pagination
+                  total={response.articlesCount}
+                  limit={limit}
+                  url={url}
+                  currentPage={currentPage}
+                />
               </>
             )}
           </div>
