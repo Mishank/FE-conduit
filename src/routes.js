@@ -9,7 +9,7 @@ import TagFeed from 'pages/tagFeed'
 export default function Routes() {
   return (
     <Switch>
-      <Route path="/" element={<GlobalFeed />} exact />
+      <Route path="/" element={<GlobalFeed />} />
       <Route path="/tags/:slug" element={<TagFeed />} />
       <Route path="/login" element={<Authentication />} />
       <Route path="/register" element={<Authentication />} />

@@ -10,13 +10,13 @@ const FeedToggler = ({ tagName }) => {
           </NavLink>
         </li>
         <li className="nav-item">
-          <NavLink to="/" className="nav-link" exact>
+          <NavLink to="/" className="nav-link">
             Global feed
           </NavLink>
         </li>
         {tagName && (
           <li className="nav-item">
-            <NavLink to={`/tags/${tagName}`} className="nav-link" exact>
+            <NavLink to={`/tags/${tagName}`} className="nav-link">
               <i className="ion-pound"></i>
               {tagName}
             </NavLink>

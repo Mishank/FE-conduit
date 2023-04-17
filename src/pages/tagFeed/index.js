@@ -13,14 +13,14 @@ import FeedToggler from 'components/feedToggler'
 
 const TagFeed = (props) => {
   const location = useLocation()
-  const tagName = location.search.slug
+  const tagName = location.pathname
 
-  console.log({ tagName })
   const { offset, currentPage } = getPaginator(location.search)
 
   const stringifieldParams = queryString.stringify({
     limit,
     offset,
+    tag: tagName,
   })
   const apiUrl = `/articles?${stringifieldParams}`
   const [{ response, error, isLoading }, doFetch] = useFetch(apiUrl)
@@ -28,7 +28,7 @@ const TagFeed = (props) => {
 
   useEffect(() => {
     doFetch()
-  }, [doFetch, currentPage])
+  }, [doFetch, currentPage, tagName])
 
   return (
     <div className="home-page">
@@ -39,7 +39,7 @@ const TagFeed = (props) => {
       <div className="container page">
         <div className="row">
           <div className="col-md-9">
-            <FeedToggler />
+            <FeedToggler tagName={tagName} />
             {isLoading && <Loading />}
             {error && <ErrorMessage />}
             {!isLoading && response && (
