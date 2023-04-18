@@ -19,7 +19,7 @@ const Authentication = (props) => {
   const [isSuccessfullSubmit, setIsSuccessfullSubmit] = useState(false)
   const [{ response, isLoading, error }, doFetch] = useFetch(apiUrl)
   const [, setToken] = useLocalStorage('token')
-  const [, setCurrentUserState] = useContext(CurrentUserContext)
+  const [, dispatch] = useContext(CurrentUserContext)
 
   const handleSubmit = (event) => {
     event.preventDefault()
@@ -31,19 +31,15 @@ const Authentication = (props) => {
       },
     })
   }
+
   useEffect(() => {
     if (!response) {
       return
     }
     setToken(response.user.token)
     setIsSuccessfullSubmit(true)
-    setCurrentUserState((state) => ({
-      ...state,
-      isLoggedIn: true,
-      isLoading: false,
-      currentUser: response.user,
-    }))
-  }, [response, setToken, setCurrentUserState])
+    dispatch({ type: 'SET_AUTHORIZED', payload: response.user })
+  }, [response, setToken, dispatch])
 
   if (isSuccessfullSubmit) {
     return <Navigate to="/" />
@@ -58,9 +54,8 @@ const Authentication = (props) => {
             <p className="text-xs-center">
               <Link to={descriptionLink}>{descriptionText}</Link>
             </p>
-
+            {error && <BackendErrorMessages backendErrors={error.errors} />}
             <form onSubmit={handleSubmit}>
-              {error && <BackendErrorMessages backendErrors={error.errors} />}
               <fieldset>
                 {!isLogin && (
                   <fieldset className="form-group">
