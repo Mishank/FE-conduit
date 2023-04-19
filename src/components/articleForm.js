@@ -38,6 +38,7 @@ const ArticleForm = ({ onsubmit, errors, initialValues }) => {
               <fieldset>
                 <fieldset className="form-group">
                   <input
+                    readOnly
                     type="text"
                     className="form-control form-control-lg"
                     placeholder="Article title"

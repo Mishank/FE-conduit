@@ -7,6 +7,7 @@ import { CurrentUserContext } from 'contexts/currentUser'
 const EditArticle = (props) => {
   const params = useParams()
   const slug = params.slug
+  console.log({ slug })
   const [currentUserState] = useContext(CurrentUserContext)
   const apiUrl = `/articles/${slug}`
   const [{ response: fetchAricleResponse }, doFetchArticle] = useFetch(apiUrl)
