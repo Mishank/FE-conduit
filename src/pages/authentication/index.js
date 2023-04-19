@@ -4,8 +4,7 @@ import { Link, useLocation, Navigate } from 'react-router-dom'
 import useFetch from 'hooks/useFetch'
 import useLocalStorage from 'hooks/useLocalStorage'
 import { CurrentUserContext } from 'contexts/currentUser'
-import BackendErrorMessages from './components/backendErrorMessages'
-
+import BackendErrorMessages from 'components/backendErrorMessages'
 const Authentication = (props) => {
   const location = useLocation()
   const isLogin = location.pathname === '/login'
