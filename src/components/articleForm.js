@@ -12,7 +12,7 @@ const ArticleForm = ({ onsubmit, errors, initialValues }) => {
       title,
       body,
       description,
-      tagList,
+      tagList: tagList.split(' '),
     }
     onsubmit(article)
   }

@@ -8,7 +8,6 @@ import TagList from 'components/tagList'
 
 const Article = (props) => {
   const params = useParams()
-  console.log({ params })
   const slug = params.slug
   const apiUrl = `/articles/${slug}`
   const [{ response, error, isLoading }, doFetch] = useFetch(apiUrl)
