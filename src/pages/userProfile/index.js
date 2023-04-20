@@ -2,12 +2,14 @@ import { NavLink, useLocation, useParams } from 'react-router-dom'
 
 import useFetch from 'hooks/useFetch'
 import { useEffect } from 'react'
+import UserArticles from 'pages/userProfile/components/userArticles'
 
 const UserProfile = (props) => {
   const location = useParams()
   const pathname = useLocation()
   const slug = location.slug
-  const isFavorites = pathname.search.includes('favorites')
+  const isFavorites = pathname.search.includes('favorites') //проблема
+
   const apiUrl = `/profiles/${slug}`
   const [{ response }, doFetch] = useFetch(apiUrl)
 
@@ -25,7 +27,7 @@ const UserProfile = (props) => {
         <div className="container">
           <div className="row">
             <div className="col-xs-12 col-md-10 offset-md-1">
-              <img className="user-img" alt="" src="{response.profile.image}" />
+              <img className="user-img" alt="" src={response.profile.image} />
               <h4>{response.profile.username}</h4>
               <p>{response.profile.bio}</p>
             </div>
@@ -35,15 +37,15 @@ const UserProfile = (props) => {
       <div className="container">
         <div className="row">
           <div className="col-xs-12 col-md-10 offset-md-1">
-            <div className="article-toggle">
+            <div className="articles-toggle">
               <ul className="nav nav-pills outline-active">
                 <li className="nav-item">
                   <NavLink
+                    exact
                     to={`/profiles/${response.profile.username}`}
                     className="nav-link"
-                    // exact не работает разделение постов в профиле
                   >
-                    My post
+                    My Posts
                   </NavLink>
                 </li>
                 <li className="nav-item">
@@ -51,12 +53,16 @@ const UserProfile = (props) => {
                     to={`/profiles/${response.profile.username}/favorites`}
                     className="nav-link"
                   >
-                    Favorites Post
+                    Favorites Posts
                   </NavLink>
                 </li>
               </ul>
             </div>
-            User Articles
+            <UserArticles
+              username={response.profile.username}
+              location={location}
+              url={pathname.url} //проблема natch.url
+            />
           </div>
         </div>
       </div>
