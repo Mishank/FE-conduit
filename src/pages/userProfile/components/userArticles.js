@@ -19,6 +19,7 @@ const getApiUrl = ({ username, offset, isFavorites }) => {
 const UserArticles = ({ username, location, isFavorites, url }) => {
   const { offset, currentPage } = getPaginator(location.search)
   const apiUrl = getApiUrl({ username, offset, isFavorites })
+
   console.log({ apiUrl })
   // /articles?params=%5Bobject%20Object%5D
   const [{ response, isLoading, error }, doFetch] = useFetch(apiUrl)
@@ -27,7 +28,7 @@ const UserArticles = ({ username, location, isFavorites, url }) => {
 
   useEffect(() => {
     doFetch()
-  }, [doFetch, isFavorites])
+  }, [doFetch, isFavorites, location])
 
   return (
     <div>

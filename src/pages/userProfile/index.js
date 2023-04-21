@@ -8,6 +8,8 @@ const UserProfile = (props) => {
   const pathname = useParams()
   const location = useLocation()
   const slug = pathname.slug
+  const url = location.pathname
+
   console.log({ slug })
   const isFavorites = location.pathname.includes('favorites') //проблема возможная
 
@@ -63,7 +65,7 @@ const UserProfile = (props) => {
               username={response.profile.username}
               location={location}
               isFavorites={isFavorites}
-              url={location.slug} //проблема возможная  match.url
+              url={url} //проблема возможная  slug
             />
           </div>
         </div>
