@@ -10,8 +10,7 @@ Project is localized with react-i18next. Default language is English.
 It was bootstrapped with Create React App.
 
 Project package manager is yarn.
-
-# Available Scripts
+ Available Scripts
 In the project directory, you can run:
 
 # yarn start
