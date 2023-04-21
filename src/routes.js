@@ -8,11 +8,16 @@ import TagFeed from 'pages/tagFeed'
 import YourFeed from 'pages/yourFeed'
 import CreateArticle from 'pages/createArticle'
 import EditArticle from 'pages/editArticle'
+import Settings from 'pages/settings'
+import UserProfile from 'pages/userProfile'
 
-export default function Routes() {
+const Routes = () => {
   return (
     <Switch>
       <Route path="/" element={<GlobalFeed />} exact />
+      <Route path="/profiles/:slug" element={<UserProfile />} />
+      <Route path="/profiles/:slug/favorites" element={<UserProfile />} />
+      <Route path="/settings" element={<Settings />} />
       <Route path="/articles/new" element={<CreateArticle />} />
       <Route path="/articles/:slug/edit" element={<EditArticle />} />
       <Route path="/feed" element={<YourFeed />} />
@@ -23,3 +28,5 @@ export default function Routes() {
     </Switch>
   )
 }
+
+export default Routes
