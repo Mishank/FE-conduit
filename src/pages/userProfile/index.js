@@ -5,10 +5,11 @@ import { useEffect } from 'react'
 import UserArticles from 'pages/userProfile/components/userArticles'
 
 const UserProfile = (props) => {
-  const location = useParams()
-  const pathname = useLocation()
-  const slug = location.slug
-  const isFavorites = pathname.search.includes('favorites') //проблема
+  const pathname = useParams()
+  const location = useLocation()
+  const slug = pathname.slug
+  console.log({ slug })
+  const isFavorites = location.pathname.includes('favorites') //проблема возможная
 
   const apiUrl = `/profiles/${slug}`
   const [{ response }, doFetch] = useFetch(apiUrl)
@@ -41,7 +42,7 @@ const UserProfile = (props) => {
               <ul className="nav nav-pills outline-active">
                 <li className="nav-item">
                   <NavLink
-                    exact
+                    end
                     to={`/profiles/${response.profile.username}`}
                     className="nav-link"
                   >
@@ -61,7 +62,8 @@ const UserProfile = (props) => {
             <UserArticles
               username={response.profile.username}
               location={location}
-              url={pathname.url} //проблема natch.url
+              isFavorites={isFavorites}
+              url={location.slug} //проблема возможная  match.url
             />
           </div>
         </div>

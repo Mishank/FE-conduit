@@ -1,10 +1,10 @@
 import queryString from 'query-string'
-import { getPaginator, limit } from 'utils'
+
 import useFetch from 'hooks/useFetch'
 import { useEffect } from 'react'
 import Loading from 'components/loading'
 import Pagination from 'components/pagination'
-
+import { getPaginator, limit } from 'utils'
 import ErrorMessage from 'components/errorMessage'
 import Feed from 'components/feed'
 
@@ -19,6 +19,8 @@ const getApiUrl = ({ username, offset, isFavorites }) => {
 const UserArticles = ({ username, location, isFavorites, url }) => {
   const { offset, currentPage } = getPaginator(location.search)
   const apiUrl = getApiUrl({ username, offset, isFavorites })
+  console.log({ apiUrl })
+  // /articles?params=%5Bobject%20Object%5D
   const [{ response, isLoading, error }, doFetch] = useFetch(apiUrl)
 
   console.log({ response })

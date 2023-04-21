@@ -15,12 +15,12 @@ const Routes = () => {
   return (
     <Switch>
       <Route path="/" element={<GlobalFeed />} exact />
-      <Route path="/settings" element={<Settings />} exact />
       <Route path="/profiles/:slug" element={<UserProfile />} />
       <Route path="/profiles/:slug/favorites" element={<UserProfile />} />
+      <Route path="/settings" element={<Settings />} />
       <Route path="/articles/new" element={<CreateArticle />} />
       <Route path="/articles/:slug/edit" element={<EditArticle />} />
-      <Route path="/feed" element={<YourFeed />} exact />
+      <Route path="/feed" element={<YourFeed />} />
       <Route path="/tags/:slug" element={<TagFeed />} />
       <Route path="/login" element={<Authentication />} />
       <Route path="/register" element={<Authentication />} />
